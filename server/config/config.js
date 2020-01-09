@@ -15,6 +15,9 @@ process.env.EXPIRE_TOKEN = 60 * 60 * 24 * 30;
 // Seed SECRET KEY
 process.env.SEED = process.env.SEED || 'esta-es-mi-secret-key-DESARROLLO';
 
+// Google Client ID
+process.env.CLIENT_ID = process.env.CLIENT_ID || '96617404950-rn15g8r8fq4bijr7h3g985bd6ftbck99.apps.googleusercontent.com';
+
 // Database
 let urlDB;
 
