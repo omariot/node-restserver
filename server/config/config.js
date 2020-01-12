@@ -10,7 +10,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 // 60 minutos
 // 24 horas
 // 30 dias
-process.env.EXPIRE_TOKEN = 60 * 60 * 24 * 30;
+process.env.EXPIRE_TOKEN = '48h';//60 * 60 * 24 * 30;
 
 // Seed SECRET KEY
 process.env.SEED = process.env.SEED || 'esta-es-mi-secret-key-DESARROLLO';

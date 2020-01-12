@@ -118,7 +118,7 @@ app.get("/usuario", verificaToken, (req, res) => {
                   ok: true,
                   usuario: usuarioBorrado
               });
-        })
+        });
 
   });
 
