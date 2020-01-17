@@ -19,6 +19,22 @@ let verificaToken = (req, res, next) => {
     
 };
 
+// Verificar Token Url
+let verificaTokenUrl = (req, res, next) => {
+    let token = req.query.token;
+    jwt.verify( token, process.env.SEED, (err, decode) => {
+        if ( err ) {
+            return res.status(401).json({
+                ok: false,
+                err
+            });
+        }
+
+        req.usuario = decode.usuario;
+        next();
+    });
+}
+
 // Verifica ADMIN_ROLE
 let verificaAdminRole = (req, res, next) => {
     let usuario = req.usuario;
@@ -38,5 +54,6 @@ let verificaAdminRole = (req, res, next) => {
 
 module.exports = {
     verificaToken,
+    verificaTokenUrl,
     verificaAdminRole
 };
