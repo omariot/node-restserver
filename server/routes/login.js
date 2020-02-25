@@ -1,12 +1,69 @@
 const express = require("express");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
-
 const Usuario = require('../models/usuario');
 const app = express();
 
+//Routes
+/**
+* @swagger
+* definitions:
+*   Login:
+*     required:
+*       - username
+*       - password
+*     properties:
+*       username:
+*         type: string
+*       password:
+*         type: string
+*       path:
+*         type: string
+*/
+
+/**
+* @swagger
+* tags:
+*   name: Users
+*   description: User management and login
+*/
+
+/**
+* @swagger
+* tags:
+*   - name: Login
+*     description: Login
+*   - name: Accounts
+*     description: Accounts
+*/
+
+/**
+* @swagger 
+* /login:
+*  post:
+*      description: Login
+*      produces:
+*          - application/json
+*      tags: [Login, Users]
+*      parameters:
+*        - name: username
+*          description: Nombre de la persona.
+*          in: body
+*          required: true
+*          type: string
+*        - password:  password
+*          description: Contraseña.
+*          in: body
+*          required: true
+*          type: string
+*      responses:
+*          '200': 
+*              description: A success response.
+*/
 app.post('/login', (req, res) => {
 
     let body = req.body;
@@ -17,7 +74,7 @@ app.post('/login', (req, res) => {
                 ok: false,
                 err
             });
-        };
+        }
 
         if (!usuarioDb) {
             return res.status(400).json({
@@ -70,6 +127,24 @@ async function verify( token ) {
     }
   }
   
+
+/**
+ * @swagger 
+ * /google:
+ *  post:
+ *      description: Google Login
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *        - name: idtoken
+ *          description: id del Token de Google.
+ *          in: body
+ *          required: true
+ *          type: string
+ *      responses:
+ *          '200': 
+ *              description: A success response.
+ */  
 app.post('/google', async (req, res) => {
     let token = req.body.idtoken;
     let googleUser = await verify(token)

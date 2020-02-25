@@ -2,6 +2,9 @@
 // Puerto
 process.env.PORT = process.env.PORT || 3000;
 
+// IP
+process.env.IP =  process.env.IP || 'localhost';
+
 // Entorno
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 

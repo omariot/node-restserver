@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const express = require("express");
 const path = require('path');
 
-
 const app = express();
 const bodyParser = require('body-parser');
 
@@ -16,8 +15,6 @@ app.use(bodyParser.json());
 
 // Habilita index
 app.use( express.static(path.resolve(__dirname, '../public') ) );
-
-
 app.use (require('./routes/index'));
 
 mongoose.connect(process.env.URLDB, { 
