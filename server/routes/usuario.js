@@ -6,6 +6,30 @@ const Usuario = require('../models/usuario');
 const { verificaToken, verificaAdminRole } = require('../middlewares/autenticacion');
 const app = express();
 
+/**
+ * @swagger 
+ * /usuario:
+ *  get:
+ *      description: Listado de Usuarios
+ *      tags: [Usuarios]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *        - name: desde
+ *          description: A partir desde estos registros.
+ *          in: query
+ *          type: Number
+ *        - name: limite
+ *          description: Limite de registros.
+ *          in: query
+ *          type: Number
+ *        - name: token
+ *          description: Token del usuario logueado
+ *          type: string
+ *      responses:
+ *          '200': 
+ *              description: A success response.
+ */ 
 app.get("/usuario", verificaToken, (req, res) => {
     let desde = req.query.desde || 0; 
     desde = Number(desde);
@@ -35,7 +59,7 @@ app.get("/usuario", verificaToken, (req, res) => {
                         usuarios,
                         cuantos: conteo
                     });
-                })
+                });
            });
   });
   

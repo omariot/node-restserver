@@ -1,3 +1,4 @@
+'esversion: 8';
 const express = require("express");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -10,45 +11,11 @@ const app = express();
 
 //Routes
 /**
-* @swagger
-* definitions:
-*   Login:
-*     required:
-*       - username
-*       - password
-*     properties:
-*       username:
-*         type: string
-*       password:
-*         type: string
-*       path:
-*         type: string
-*/
-
-/**
-* @swagger
-* tags:
-*   name: Users
-*   description: User management and login
-*/
-
-/**
-* @swagger
-* tags:
-*   - name: Login
-*     description: Login
-*   - name: Accounts
-*     description: Accounts
-*/
-
-/**
 * @swagger 
 * /login:
 *  post:
 *      description: Login
-*      produces:
-*          - application/json
-*      tags: [Login, Users]
+*      tags: [Login]
 *      parameters:
 *        - name: username
 *          description: Nombre de la persona.
@@ -83,7 +50,7 @@ app.post('/login', (req, res) => {
                     message: '(Usuario) o clave incorrecta.'
                 }
             });
-        };     
+        }     
 
         if ( !bcrypt.compareSync( body.password, usuarioDb.password ) ) {
             return res.status(400).json({
@@ -108,6 +75,7 @@ app.post('/login', (req, res) => {
 
 
 // Google Config
+
 async function verify( token ) {
     const ticket = await client.verifyIdToken({
         idToken: token,
@@ -124,7 +92,7 @@ async function verify( token ) {
         email: payload.email,
         img: payload.picture,
         google: true
-    }
+    };
   }
   
 
@@ -133,8 +101,7 @@ async function verify( token ) {
  * /google:
  *  post:
  *      description: Google Login
- *      produces:
- *          - application/json
+ *      tags: [Login]
  *      parameters:
  *        - name: idtoken
  *          description: id del Token de Google.
@@ -161,7 +128,8 @@ app.post('/google', async (req, res) => {
                 ok: false,
                 err
             });
-        };
+        }
+
         if(usuarioDb){
             if (usuarioDb.google === false ) {
                 return res.status(400).json({
@@ -193,7 +161,7 @@ app.post('/google', async (req, res) => {
                         ok: false,
                         err
                     });
-                };
+                }
                 
                 let token = jwt.sign({ usuario: usuarioDb }, process.env.SEED, { expiresIn: process.env.EXPIRE_TOKEN } );
 
@@ -202,7 +170,7 @@ app.post('/google', async (req, res) => {
                     usuario: usuarioDb,
                     token
                 });
-            })
+            });
         }
     });
 });

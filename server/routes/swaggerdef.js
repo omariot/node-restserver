@@ -1,8 +1,9 @@
 require('../config/config');
 
-const host = `http://${ process.env.IP }:${ process.env.PORT }`;
+const host = `http://${process.env.IP}:${process.env.PORT}`;
 
 module.exports = {
+    openapi: '3.0.0',
     info: {
       // API informations (required)
         title: 'Rest Server Curso NodeJs API',
@@ -11,4 +12,5 @@ module.exports = {
     },
     host: host, // Host (optional)
     basePath: '/', // Base path (optional)
+    swagger: '3.0',
   };

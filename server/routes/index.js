@@ -11,15 +11,17 @@ const swaggerOptions = {
     swaggerDefinition,
     // Path to the API docs
     // Note that this path is relative to the current directory from which the Node.js is ran, not the application itself.
-    apis: ['login.js'],
+    apis: ['./server/routes/login.js',
+           './server/routes/usuario.js',
+          ],
   };
-  
-console.log(swaggerOptions);
+console.log(swaggerOptions) ;
 
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
 const swaggerSpec = swaggerJsDoc(swaggerOptions);
-  
- app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); 
+
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); 
 
 app.use(require('./usuario'));
 app.use(require('./login'));
